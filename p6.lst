@@ -1,0 +1,122 @@
+Microsoft (R) Macro Assembler Version 6.14.8444		    06/01/21 20:25:05
+asm\p6.asm						     Page 1 - 1
+
+
+				COMMENT ! Descripción del programa:
+				          Resta de 3 números
+				          Fecha: 28/05/2021
+				          Fernando Escalante Acuña
+				        !
+				.MODEL SMALL
+				.586
+				.STACK
+ 0000				.DATA
+ 0000 50 72 6F 67 72 61		        mensaje DB 'Programa que resta tres numeros', 13, 10, '$'
+       6D 61 20 71 75 65
+       20 72 65 73 74 61
+       20 74 72 65 73 20
+       6E 75 6D 65 72 6F
+       73 0D 0A 24
+ 0022 0D 0A 50 72 69 6D		        m1 DB 13, 10, 'Primer numero: $'
+       65 72 20 6E 75 6D
+       65 72 6F 3A 20 24
+ 0034 0D 0A 53 65 67 75		        m2 DB 13, 10, 'Segundo numero: $'
+       6E 64 6F 20 6E 75
+       6D 65 72 6F 3A 20
+       24
+ 0047 0D 0A 54 65 72 63		        m3 DB 13, 10, 'Tercer numero:  $'
+       65 72 20 6E 75 6D
+       65 72 6F 3A 20 20
+       24
+ 005A 30			        num1 DB '0'
+ 005B 30			        num2 DB '0'
+ 005C 30			        num3 DB '0'
+ 005D 30			        resultado DB '0'
+ 005E 0D 0A 4C 61 20 72		        msgResultado DB 13,10, 'La resta es: $'   
+       65 73 74 61 20 65
+       73 3A 20 24
+ 0000				.CODE
+ 0000  B8 ---- R		    mov ax, @data
+ 0003  8E D8			            mov ds, ax
+ 0005  BA 0000 R		            mov dx, OFFSET mensaje
+ 0008  B4 09			            mov ah, 9h   
+ 000A  CD 21			            int 21h 
+				            ;solicitar del teclado numero 1
+ 000C  B4 09			    mov ah, 09
+ 000E  8D 16 0022 R		    lea dx, m1
+ 0012  CD 21			    int 21h
+ 0014  B4 01			    mov ah, 01
+ 0016  CD 21			    int 21h
+ 0018  2C 30			    sub al, 30h
+ 001A  A2 005A R		    mov num1,al
+				    ;solicitar del teclado numero 2
+ 001D  B4 09			    mov ah, 09
+ 001F  8D 16 0034 R		    lea dx, m2
+ 0023  CD 21			    int 21h
+ 0025  B4 01			    mov ah, 01
+ 0027  CD 21			    int 21h
+ 0029  2C 30			    sub al, 30h
+ 002B  A2 005B R		    mov num2,al
+				    ;Solicitar del teclado el número 3
+ 002E  B4 09			    mov ah, 09
+ 0030  8D 16 0047 R		    lea dx, m3
+ 0034  CD 21			    int 21h
+ 0036  B4 01			    mov ah, 01
+ 0038  CD 21			    int 21h
+ 003A  2C 30			    sub al, 30h
+ 003C  A2 005C R		    mov num3,al
+ 003F  A0 005A R		    mov al,num1
+ 0042  2A 06 005B R		    sub al,num2
+ 0046  2A 06 005C R		    sub al,num3
+ 004A  A2 005D R		    mov resultado,al
+ 004D  B4 09			    mov ah,09
+ 004F  8D 16 005E R		    lea dx,msgResultado
+ 0053  CD 21			    int 21h
+ 0055  8A 16 005D R		    mov dl,resultado
+ 0059  80 C2 30			    add dl,30h 
+ 005C  B4 02			    mov ah,02
+ 005E  CD 21			    int 21h
+ 0060  B8 4C00			            mov ax, 4c00h
+ 0063  CD 21			            int 21h
+				END
+Microsoft (R) Macro Assembler Version 6.14.8444		    06/01/21 20:25:05
+asm\p6.asm						     Symbols 2 - 1
+
+
+
+
+Segments and Groups:
+
+                N a m e                 Size     Length   Align   Combine Class
+
+DGROUP . . . . . . . . . . . . .	GROUP
+_DATA  . . . . . . . . . . . . .	16 Bit	 006E	  Word	  Public  'DATA'	
+STACK  . . . . . . . . . . . . .	16 Bit	 0400	  Para	  Stack	  'STACK'	 
+_TEXT  . . . . . . . . . . . . .	16 Bit	 0065	  Word	  Public  'CODE'	
+
+
+Symbols:
+
+                N a m e                 Type     Value    Attr
+
+@CodeSize  . . . . . . . . . . .	Number	 0000h	 
+@DataSize  . . . . . . . . . . .	Number	 0000h	 
+@Interface . . . . . . . . . . .	Number	 0000h	 
+@Model . . . . . . . . . . . . .	Number	 0002h	 
+@code  . . . . . . . . . . . . .	Text   	 _TEXT
+@data  . . . . . . . . . . . . .	Text   	 DGROUP
+@fardata?  . . . . . . . . . . .	Text   	 FAR_BSS
+@fardata . . . . . . . . . . . .	Text   	 FAR_DATA
+@stack . . . . . . . . . . . . .	Text   	 DGROUP
+m1 . . . . . . . . . . . . . . .	Byte	 0022	  _DATA	
+m2 . . . . . . . . . . . . . . .	Byte	 0034	  _DATA	
+m3 . . . . . . . . . . . . . . .	Byte	 0047	  _DATA	
+mensaje  . . . . . . . . . . . .	Byte	 0000	  _DATA	
+msgResultado . . . . . . . . . .	Byte	 005E	  _DATA	
+num1 . . . . . . . . . . . . . .	Byte	 005A	  _DATA	
+num2 . . . . . . . . . . . . . .	Byte	 005B	  _DATA	
+num3 . . . . . . . . . . . . . .	Byte	 005C	  _DATA	
+resultado  . . . . . . . . . . .	Byte	 005D	  _DATA	
+
+	   0 Warnings
+	   0 Errors
